@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Controller;
 
-class LoginController extends BaseController {
+class LoginController extends BaseController
+{
 
-    public function handle(): void {
+    public function handle(): void
+    {
         if ($this->isAuthenticated()) {
             $this->redirect('/news');
         }

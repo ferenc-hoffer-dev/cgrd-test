@@ -2,8 +2,10 @@
 
 namespace App\Traits;
 
-trait JsonResponseTrait {
-    protected function jsonSuccess($data = null, string $message = ''): void {
+trait JsonResponseTrait
+{
+    protected function jsonSuccess($data = null, string $message = ''): void
+    {
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
@@ -13,7 +15,8 @@ trait JsonResponseTrait {
         exit;
     }
 
-    protected function jsonError(string $message = '', $data = null, int $statusCode = 400): void {
+    protected function jsonError(string $message = '', $data = null, int $statusCode = 400): void
+    {
         http_response_code($statusCode);
         header('Content-Type: application/json');
         echo json_encode([

@@ -7,7 +7,9 @@
 <body>
 <h1>News Management</h1>
 <?php
+
 use App\Auth;
+
 $currentUser = Auth::user();
 ?>
 <p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout.php">Logout</a></p>

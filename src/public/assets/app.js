@@ -15,7 +15,7 @@ const renderNewsList = items => {
         li.dataset.id = item.id;
         li.innerHTML = `
             <strong>${item.title}</strong>
-            <p>${item.body.replace(/\n/g,'<br>')}</p>
+            <p>${item.body.replace(/\n/g, '<br>')}</p>
             <button onclick="editNews(${item.id}, '${escapeJs(item.title)}', '${escapeJs(item.body)}')">Edit</button>
             <button onclick="deleteNews(${item.id})">Delete</button>
         `;
@@ -24,7 +24,7 @@ const renderNewsList = items => {
 };
 
 const fetchNews = async () => {
-    const res = await fetch(apiEndpoint, { method: 'GET' });
+    const res = await fetch(apiEndpoint, {method: 'GET'});
     const data = await res.json();
     if (data.success) renderNewsList(data.data);
 };
@@ -33,9 +33,9 @@ newsForm.addEventListener('submit', async e => {
     e.preventDefault();
     const id = newsId.value;
     const method = id ? 'PUT' : 'POST';
-    const body = new URLSearchParams({ id, title: newsTitle.value, body: newsBody.value });
+    const body = new URLSearchParams({id, title: newsTitle.value, body: newsBody.value});
 
-    const res = await fetch(apiEndpoint, { method, body });
+    const res = await fetch(apiEndpoint, {method, body});
     const data = await res.json();
     if (data.success) {
         newsId.value = '';
@@ -57,7 +57,7 @@ window.deleteNews = async id => {
     if (!confirm('Are you sure?')) return;
     const res = await fetch(apiEndpoint, {
         method: 'DELETE',
-        body: new URLSearchParams({ id })
+        body: new URLSearchParams({id})
     });
     const data = await res.json();
     if (data.success) {
