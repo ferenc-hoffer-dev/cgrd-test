@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hírek kezelése</title>
+    <meta charset="UTF-8">
+    <title>News Management</title>
 </head>
 <body>
-<h1>Hírek kezelése</h1>
-<p>Bejelentkezve: <?= htmlspecialchars($this->user) ?> | <a href="/logout.php">Kilépés</a></p>
+<h1>News Management</h1>
+<?php
+use App\Auth;
+$currentUser = Auth::user();
+?>
+<p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout.php">Logout</a></p>
 
-<h2>Új hír</h2>
+<h2>Create New News</h2>
 <form id="newsForm">
     <input type="hidden" name="id" id="newsId">
-    <input type="text" name="title" id="newsTitle" placeholder="Cím" required><br>
-    <textarea name="body" id="newsBody" placeholder="Szöveg" required></textarea><br>
-    <button type="submit">Mentés</button>
+    <input type="text" name="title" id="newsTitle" placeholder="Title" required><br>
+    <textarea name="body" id="newsBody" placeholder="Content" required></textarea><br>
+    <button type="submit">Save</button>
 </form>
 
-<h2>Hírek</h2>
+<h2>News List</h2>
 <ul id="newsList"></ul>
 
 <script src="assets/app.js"></script>

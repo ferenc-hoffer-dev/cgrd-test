@@ -1,52 +1,43 @@
 <?php
 namespace App\Controller;
 
-use App\Auth;
 use App\News;
+use App\Traits\JsonResponseTrait;
 
-class NewsController {
-    private $news;
-    private $user;
+class NewsController extends BaseController {
+    use JsonResponseTrait;
+    private News $news;
 
-    public function __construct(\PDO $db)
-    {
-        $this->news = new News($db);
-        $this->user = Auth::user();
+    public function __construct(\PDO $pdo) {
+        parent::__construct($pdo);
+        $this->news = new News($pdo);
     }
 
-    // fő entry point
-    public function handle()
-    {
-        if (!Auth::check()) {
-            header('Location: /');
-            exit;
+    public function handle(): void {
+        if (!$this->isAuthenticated()) {
+            $this->redirect('/');
         }
 
         include __DIR__ . '/../../public/news.php';
     }
 
-    // AJAX: új hír létrehozása
-    public function create($title, $body)
-    {
-        return $this->news->create($title, $body, $this->user);
+    public function indexJson(): void {
+        $news = $this->news->all();
+        $this->jsonSuccess($news);
     }
 
-    // AJAX: hír frissítése
-    public function update($id, $title, $body)
-    {
-        return $this->news->update((int)$id, $title, $body);
+    public function create(string $title, string $body): void {
+        $ok = $this->news->create($title, $body, $this->getCurrentUser());
+        $ok ? $this->jsonSuccess(null, 'News created') : $this->jsonError('Create failed');
     }
 
-    // AJAX: hír törlése
-    public function delete($id)
-    {
-        return $this->news->delete((int)$id);
+    public function update(int $id, string $title, string $body): void {
+        $ok = $this->news->update($id, $title, $body);
+        $ok ? $this->jsonSuccess(null, 'News updated') : $this->jsonError('Update failed');
     }
 
-    // hírek lekérése JSON-ban (AJAX)
-    public function allJson()
-    {
-        header('Content-Type: application/json');
-        echo json_encode($this->news->all());
+    public function delete(int $id): void {
+        $ok = $this->news->delete($id);
+        $ok ? $this->jsonSuccess(null, 'News deleted') : $this->jsonError('Delete failed');
     }
 }

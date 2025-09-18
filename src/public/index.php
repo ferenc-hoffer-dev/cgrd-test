@@ -1,10 +1,6 @@
 <?php
 require_once __DIR__ . '/../App/Bootstrap.php';
 
-foreach (glob(__DIR__ . '/../App/Controller/*.php') as $file) {
-    require_once $file;
-}
-
 use App\Controller\LoginController;
 use App\Controller\NewsController;
 

@@ -1,45 +1,34 @@
 <?php
 require_once __DIR__ . '/../App/Bootstrap.php';
 
-require_once __DIR__ . '/../App/Controller/NewsController.php';
-
-use App\Auth;
 use App\Controller\NewsController;
+use App\Auth;
 
 header('Content-Type: application/json');
-
 if (!Auth::check()) {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit;
 }
 
-$newsController = new NewsController($db);
+$controller = new NewsController($db);
+$method = $_SERVER['REQUEST_METHOD'];
 
-$action = $_POST['action'] ?? '';
-$id     = $_POST['id'] ?? null;
-$title  = $_POST['title'] ?? '';
-$body   = $_POST['body'] ?? '';
-
-switch ($action) {
-    case 'create':
-        $success = $newsController->create($title, $body);
-        echo json_encode(['success' => $success]);
+switch ($method) {
+    case 'GET':
+        $controller->indexJson();
         break;
-
-    case 'update':
-        $success = $newsController->update($id, $title, $body);
-        echo json_encode(['success' => $success]);
+    case 'POST':
+        $controller->create($_POST['title'] ?? '', $_POST['body'] ?? '');
         break;
-
-    case 'delete':
-        $success = $newsController->delete($id);
-        echo json_encode(['success' => $success]);
+    case 'PUT':
+        parse_str(file_get_contents('php://input'), $putVars);
+        $controller->update((int)($putVars['id'] ?? 0), $putVars['title'] ?? '', $putVars['body'] ?? '');
         break;
-
-    case 'all':
-        $newsController->allJson();
+    case 'DELETE':
+        parse_str(file_get_contents('php://input'), $deleteVars);
+        $controller->delete((int)($deleteVars['id'] ?? 0));
         break;
-
     default:
-        echo json_encode(['success' => false, 'message' => 'Unknown action']);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        http_response_code(405);
 }

@@ -1,21 +1,11 @@
 <?php
 namespace App\Controller;
 
-use App\Auth;
+class LoginController extends BaseController {
 
-class LoginController {
-    private $db;
-    private $auth;
-
-    public function __construct($db) {
-        $this->db = $db;
-        $this->auth = new Auth($db);
-    }
-
-    public function handle() {
-        if ($this->auth::check()) {
-            header('Location: /news');
-            exit;
+    public function handle(): void {
+        if ($this->isAuthenticated()) {
+            $this->redirect('/news');
         }
 
         $error = null;
@@ -23,10 +13,9 @@ class LoginController {
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
             if ($this->auth->attempt($username, $password)) {
-                header('Location: /news');
-                exit;
+                $this->redirect('/news');
             } else {
-                $error = "Hibás felhasználónév vagy jelszó";
+                $error = "Invalid username or password";
             }
         }
 
