@@ -1,34 +1,41 @@
 <?php
 require_once __DIR__ . '/../App/Bootstrap.php';
 
+use App\AuthService;
 use App\Controller\NewsController;
-use App\Auth;
+use App\Helpers\BaseHelper;
+use App\Repository\NewsRepository;
+use App\Service\NewsService;
 
 header('Content-Type: application/json');
-if (!Auth::check()) {
+if (!BaseHelper::isUserSet()) {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit;
 }
 
-$controller = new NewsController($db);
+$newsRepository = new NewsRepository($db);
+$newsService = new NewsService($newsRepository);
+$authService = new AuthService($db);
+$newsController = new NewsController($newsService, $authService);
+
 $method = $_SERVER['REQUEST_METHOD'];
+
+parse_str(file_get_contents('php://input'), $input);
 
 switch ($method) {
     case 'GET':
-        $controller->indexJson();
+        $newsController->indexJson();
         break;
     case 'POST':
-        $controller->create($_POST['title'] ?? '', $_POST['body'] ?? '');
+        $newsController->create($input['title'] ?? '', $input['body'] ?? '');
         break;
     case 'PUT':
-        parse_str(file_get_contents('php://input'), $putVars);
-        $controller->update((int)($putVars['id'] ?? 0), $putVars['title'] ?? '', $putVars['body'] ?? '');
+        $newsController->update((int)($input['id'] ?? 0), $input['title'] ?? '', $input['body'] ?? '');
         break;
     case 'DELETE':
-        parse_str(file_get_contents('php://input'), $deleteVars);
-        $controller->delete((int)($deleteVars['id'] ?? 0));
+        $newsController->delete((int)($input['id'] ?? 0));
         break;
     default:
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
         http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
 }

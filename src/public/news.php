@@ -8,9 +8,9 @@
 <h1>News Management</h1>
 <?php
 
-use App\Auth;
+use App\Helpers\BaseHelper;
 
-$currentUser = Auth::user();
+$currentUser = BaseHelper::getUser();
 ?>
 <p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout.php">Logout</a></p>
 

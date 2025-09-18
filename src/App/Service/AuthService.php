@@ -4,7 +4,7 @@ namespace App;
 
 use PDO;
 
-class Auth
+class AuthService
 {
     private $pdo;
 
@@ -26,18 +26,24 @@ class Auth
         return false;
     }
 
-    public static function check(): bool
+    public function check(): bool
     {
         return isset($_SESSION['user']);
     }
 
-    public static function user(): ?string
+    public function user(): ?string
     {
         return $_SESSION['user'] ?? null;
     }
 
-    public static function logout(): void
+    public function logout(): void
     {
         session_destroy();
+    }
+
+    public function redirect(string $url): void
+    {
+        header("Location: $url");
+        exit;
     }
 }

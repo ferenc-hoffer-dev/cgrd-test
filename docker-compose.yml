@@ -5,6 +5,8 @@ services:
       - ./src:/var/www/html
     networks:
       - webnet
+    depends_on:
+      - db
     environment:
       DB_HOST: db
       DB_NAME: ${MYSQL_DATABASE}

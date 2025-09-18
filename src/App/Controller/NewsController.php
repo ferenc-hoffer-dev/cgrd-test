@@ -2,25 +2,27 @@
 
 namespace App\Controller;
 
-use App\News;
+use App\AuthService;
+use App\Service\NewsService;
 use App\Traits\JsonResponseTrait;
 
-class NewsController extends BaseController
+class NewsController
 {
     use JsonResponseTrait;
 
-    private News $news;
+    private NewsService $service;
+    private AuthService $authService;
 
-    public function __construct(\PDO $pdo)
+    public function __construct(NewsService $service, AuthService $authService)
     {
-        parent::__construct($pdo);
-        $this->news = new News($pdo);
+        $this->service = $service;
+        $this->authService = $authService;
     }
 
     public function handle(): void
     {
-        if (!$this->isAuthenticated()) {
-            $this->redirect('/');
+        if (!$this->authService->check()) {
+            $this->authService->redirect('/');
         }
 
         include __DIR__ . '/../../public/news.php';
@@ -28,25 +30,24 @@ class NewsController extends BaseController
 
     public function indexJson(): void
     {
-        $news = $this->news->all();
-        $this->jsonSuccess($news);
+        $this->jsonSuccess($this->service->getAllNews());
     }
 
     public function create(string $title, string $body): void
     {
-        $ok = $this->news->create($title, $body, $this->getCurrentUser());
+        $ok = $this->service->createNews($title, $body, $this->authService->user());
         $ok ? $this->jsonSuccess(null, 'News created') : $this->jsonError('Create failed');
     }
 
     public function update(int $id, string $title, string $body): void
     {
-        $ok = $this->news->update($id, $title, $body);
+        $ok = $this->service->updateNews($id, $title, $body);
         $ok ? $this->jsonSuccess(null, 'News updated') : $this->jsonError('Update failed');
     }
 
     public function delete(int $id): void
     {
-        $ok = $this->news->delete($id);
+        $ok = $this->service->deleteNews($id);
         $ok ? $this->jsonSuccess(null, 'News deleted') : $this->jsonError('Delete failed');
     }
 }
