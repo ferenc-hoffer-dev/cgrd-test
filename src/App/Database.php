@@ -1,0 +1,32 @@
+<?php
+namespace App;
+
+use PDO;
+use PDOException;
+
+class Database {
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
+
+    public function __construct() {
+        $this->host = $_ENV['DB_HOST'] ?? 'db';
+        $this->db   = $_ENV['DB_NAME'] ?? 'news_app';
+        $this->user = $_ENV['DB_USER'] ?? 'user';
+        $this->pass = $_ENV['DB_PASS'] ?? 'password';
+    }
+
+    public function getConnection(): PDO {
+        try {
+            $pdo = new PDO("mysql:host={$this->host};dbname={$this->db};charset=utf8mb4",
+                $this->user, $this->pass, [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]);
+            return $pdo;
+        } catch (PDOException $e) {
+            die("DB connection failed: " . $e->getMessage());
+        }
+    }
+}

@@ -4,12 +4,12 @@ USE news_app;
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (username, password_hash)
-VALUES ('admin', '$2y$10$k9UdC2ErI8YIZv..g7mAseNmrSnGZ/HwzFxInA4L8ZkXxOdyHZYYa');
+INSERT INTO users (username, password)
+VALUES ('admin', '$2y$10$zA5IXz08.6A6rAM8jiopEOQibqDd/7dF1KQwdUsbCa/H5tGl4XwjG');
 
 CREATE TABLE IF NOT EXISTS news (
     id INT AUTO_INCREMENT PRIMARY KEY,

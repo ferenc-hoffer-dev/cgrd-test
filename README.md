@@ -1,4 +1,5 @@
 # cgrd-test
 cgrd test assignment
 
-Start Docker: docker-compose up --build
+1.: cp .env.example .env
+2.: docker-compose up --build
