@@ -17,8 +17,8 @@
     <?php endif; ?>
 
     <form method="post" class="login-form">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
         <button type="submit" class="btn-save">Login</button>
     </form>
 </div>

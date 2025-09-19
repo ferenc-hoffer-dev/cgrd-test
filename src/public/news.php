@@ -14,16 +14,12 @@
 
     <div class="content-container">
         <div class="list-section">
-            <div class="section-header">
-                <h2>All News</h2>
-            </div>
+            <h2 class="form-header">All News</h2>
             <ul id="newsList" class="news-list"></ul>
         </div>
 
         <div class="edit-section">
-            <div class="section-header">
-                <h2 id="formHeader">Create News</h2>
-            </div>
+            <h2 class="form-header" id="formHeader">Create News</h2>
             <form id="newsForm">
                 <input type="hidden" name="id" id="newsId">
                 <input type="text" name="title" id="newsTitle" placeholder="Title" required>
