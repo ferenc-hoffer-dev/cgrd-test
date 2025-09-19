@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
-<h1>Bejelentkezés</h1>
-<?php if ($error): ?>
-    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
-<form method="post">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
-</form>
+<div class="main-container">
+    <div class="logo-container">
+        <img src="assets/logo.svg" alt="cgrd logo" class="logo">
+    </div>
+
+    <?php if (!empty($error)): ?>
+        <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
+    <form method="post" class="login-form">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" class="btn-save">Login</button>
+    </form>
+</div>
 </body>
 </html>

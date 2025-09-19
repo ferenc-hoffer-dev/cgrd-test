@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>News Management</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
-<h1>News Management</h1>
-<?php
+<div class="main-container">
+    <div class="logo-container">
+        <img src="assets/logo.svg" alt="cgrd logo" class="logo">
+    </div>
 
-use App\Helpers\BaseHelper;
+    <div class="content-container">
+        <div class="list-section">
+            <div class="section-header">
+                <h2>All News</h2>
+            </div>
+            <ul id="newsList" class="news-list"></ul>
+        </div>
 
-$currentUser = BaseHelper::getUser();
-?>
-<p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout">Logout</a></p>
-
-<h2>Create New News</h2>
-<form id="newsForm">
-    <input type="hidden" name="id" id="newsId">
-    <input type="text" name="title" id="newsTitle" placeholder="Title" required><br>
-    <textarea name="body" id="newsBody" placeholder="Content" required></textarea><br>
-    <button type="submit">Save</button>
-</form>
-
-<h2>News List</h2>
-<ul id="newsList"></ul>
-
+        <div class="edit-section">
+            <div class="section-header">
+                <h2 id="formHeader">Create News</h2>
+            </div>
+            <form id="newsForm">
+                <input type="hidden" name="id" id="newsId">
+                <input type="text" name="title" id="newsTitle" placeholder="Title" required>
+                <textarea name="body" id="newsBody" placeholder="Content" required></textarea>
+                <div class="button-group">
+                    <button type="submit" class="btn-save">Save</button>
+                    <a href="/logout" class="btn-save">Logout</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="assets/app.js"></script>
+
 </body>
 </html>

@@ -26,7 +26,7 @@ class AuthController
             if ($this->authService->attempt($username, $password)) {
                 $this->authService->redirect('/news');
             } else {
-                $error = "Invalid username or password";
+                $error = "Wrong Login Data!";
             }
         }
 
