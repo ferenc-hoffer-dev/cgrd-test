@@ -14,7 +14,7 @@
 
     <div class="content-container">
         <div class="list-section">
-            <h2 class="form-header">All News</h2>
+            <h2 class="form-header" id="newsHeader">All News</h2>
             <ul id="newsList" class="news-list"></ul>
         </div>
 

@@ -3,14 +3,22 @@ const newsForm = document.getElementById('newsForm');
 const newsId = document.getElementById('newsId');
 const newsTitle = document.getElementById('newsTitle');
 const newsBody = document.getElementById('newsBody');
-const formHeader = document.getElementById('formHeader'); // form fejléc
+const formHeader = document.getElementById('formHeader');
+const newsHeader = document.getElementById('newsHeader');
 const apiEndpoint = '/api.php';
 
-let newsData = []; // Lokális változó a betöltött híreknek
+let newsData = [];
 
-// Listázás
 const renderNewsList = items => {
     newsList.innerHTML = '';
+
+    if (items.length === 0) {
+        newsHeader.style.display = 'none';
+        return;
+    } else {
+        newsHeader.style.display = 'block';
+    }
+
     items.forEach(item => {
         const li = document.createElement('li');
         li.classList.add('news-item');
@@ -29,15 +37,13 @@ const renderNewsList = items => {
     });
 };
 
-// Form reset
 const resetForm = () => {
     newsId.value = '';
     newsTitle.value = '';
     newsBody.value = '';
-    formHeader.textContent = 'Create News'; // fejléc visszaállítása
+    formHeader.textContent = 'Create News';
 };
 
-// Fetch hírek
 const fetchNews = async () => {
     try {
         const res = await fetch(apiEndpoint, { method: 'GET' });
@@ -55,7 +61,6 @@ const fetchNews = async () => {
     }
 };
 
-// Edit hírek
 const editNews = id => {
     const newsItem = newsData.find(item => item.id == id);
     if (!newsItem) {
@@ -65,10 +70,9 @@ const editNews = id => {
     newsId.value = newsItem.id;
     newsTitle.value = newsItem.title;
     newsBody.value = newsItem.body;
-    formHeader.textContent = 'Edit News'; // fejléc módosítása
+    formHeader.textContent = 'Edit News';
 };
 
-// Törlés
 const deleteNews = async id => {
     if (!confirm('Are you sure you want to delete this news item?')) return;
     try {
@@ -89,7 +93,6 @@ const deleteNews = async id => {
     }
 };
 
-// Form submit
 newsForm.addEventListener('submit', async e => {
     e.preventDefault();
     const id = newsId.value;
@@ -111,7 +114,6 @@ newsForm.addEventListener('submit', async e => {
     }
 });
 
-// Lista gombok kezelése
 newsList.addEventListener('click', e => {
     const target = e.target.closest('.edit-icon, .delete-icon');
     if (!target) return;
@@ -124,5 +126,4 @@ newsList.addEventListener('click', e => {
     }
 });
 
-// Oldal betöltésekor hírek lekérése
 fetchNews();
