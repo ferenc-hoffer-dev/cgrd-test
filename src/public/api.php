@@ -20,7 +20,7 @@ $middleware->handle(function () use ($db, $authService) {
 
     switch ($method) {
         case 'GET':
-            $newsController->indexJson();
+            $newsController->getNews();
             break;
         case 'POST':
             $newsController->create($input['title'] ?? '', $input['body'] ?? '');

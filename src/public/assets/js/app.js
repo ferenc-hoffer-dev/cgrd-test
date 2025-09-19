@@ -94,7 +94,7 @@ cancelEdit.addEventListener('click', () => {
 });
 
 const deleteNews = async id => {
-    if (!confirm('Are you sure you want to delete this news item?')) return;
+    if (!confirm('Are you sure you want to delete this item?')) return;
     try {
         const res = await fetch(apiEndpoint, {
             method: 'DELETE',

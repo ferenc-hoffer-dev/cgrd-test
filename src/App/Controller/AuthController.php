@@ -21,13 +21,14 @@ class AuthController
 
         $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'] ?? '';
-            $password = $_POST['password'] ?? '';
+            [$username, $password] = $this->getLoginCredentials();
             if ($this->authService->attempt($username, $password)) {
                 $this->authService->redirect('/news');
-            } else {
-                $error = "Wrong Login Data!";
+                return;
             }
+
+            $error = "Wrong Login Data!";
+
         }
 
         include __DIR__ . '/../../public/login.php';
@@ -37,5 +38,13 @@ class AuthController
     {
         $this->authService->logout();
         $this->authService->redirect('/login');
+    }
+
+    private function getLoginCredentials(): array
+    {
+        return [
+            $_POST['username'] ?? '',
+            $_POST['password'] ?? '',
+        ];
     }
 }

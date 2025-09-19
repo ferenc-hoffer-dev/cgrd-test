@@ -29,7 +29,7 @@ class NewsController
         include __DIR__ . '/../../public/news.php';
     }
 
-    public function indexJson(): void
+    public function getNews(): void
     {
         $this->jsonSuccess($this->service->getAllNews());
     }
