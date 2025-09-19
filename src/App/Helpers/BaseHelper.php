@@ -13,9 +13,4 @@ class BaseHelper
     {
         return $_SESSION['user'] ?? null;
     }
-
-    public static function logout(): void
-    {
-        session_destroy();
-    }
 }

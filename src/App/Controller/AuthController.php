@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\AuthService;
+use App\Service\AuthService;
 
 class AuthController
 {
@@ -13,7 +13,7 @@ class AuthController
         $this->authService = $authService;
     }
 
-    public function handle(): void
+    public function login(): void
     {
         if ($this->authService->check()) {
             $this->authService->redirect('/news');
@@ -31,5 +31,11 @@ class AuthController
         }
 
         include __DIR__ . '/../../public/login.php';
+    }
+
+    public function logout(): void
+    {
+        $this->authService->logout();
+        $this->authService->redirect('/login');
     }
 }

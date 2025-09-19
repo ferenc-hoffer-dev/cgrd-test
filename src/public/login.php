@@ -9,9 +9,9 @@
     <p style="color:red;"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 <form method="post">
-    <input type="text" name="username" placeholder="Felhasználónév" required><br>
-    <input type="password" name="password" placeholder="Jelszó" required><br>
-    <button type="submit">Belépés</button>
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
 </form>
 </body>
 </html>

@@ -12,7 +12,7 @@ use App\Helpers\BaseHelper;
 
 $currentUser = BaseHelper::getUser();
 ?>
-<p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout.php">Logout</a></p>
+<p>Logged in: <?= htmlspecialchars($currentUser ?? '') ?> | <a href="/logout">Logout</a></p>
 
 <h2>Create New News</h2>
 <form id="newsForm">

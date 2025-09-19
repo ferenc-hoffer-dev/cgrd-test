@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\AuthService;
+use App\Service\AuthService;
 use App\Service\NewsService;
 use App\Traits\JsonResponseTrait;
 
