@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../App/Bootstrap.php';
+require_once __DIR__ . '/../App/init.php';
 
 use App\Middleware\AuthMiddleware;
 use App\Service\AuthService;
@@ -30,7 +30,7 @@ $middleware->handle(function () use ($uri, $authController, $newsController, $au
             break;
 
         case '/news':
-            $newsController->handle();
+            $newsController->index();
             break;
 
         default:

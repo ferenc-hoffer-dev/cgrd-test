@@ -12,6 +12,8 @@
         <img src="assets/images/logo.svg" alt="cgrd logo" class="logo">
     </div>
 
+    <div id="messageContainer" class="message" style="display:none;"></div>
+
     <div class="content-container">
         <div class="list-section">
             <h2 class="form-header" id="newsHeader">All News</h2>

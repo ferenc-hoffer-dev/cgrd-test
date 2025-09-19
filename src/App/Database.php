@@ -7,10 +7,10 @@ use PDOException;
 
 class Database
 {
-    private $host;
-    private $db;
-    private $user;
-    private $pass;
+    private string $host;
+    private string $db;
+    private string $user;
+    private string $pass;
 
     public function __construct()
     {

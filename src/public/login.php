@@ -13,7 +13,7 @@
     </div>
 
     <?php if (!empty($error)): ?>
-        <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
+        <div class="message error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
     <form method="post" class="login-form">

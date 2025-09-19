@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\AuthService;
 use App\Service\NewsService;
 use App\Traits\JsonResponseTrait;
+use App\Enums\NewsResponseEnum;
 
 class NewsController
 {
@@ -19,7 +20,7 @@ class NewsController
         $this->authService = $authService;
     }
 
-    public function handle(): void
+    public function index(): void
     {
         if (!$this->authService->check()) {
             $this->authService->redirect('/');
@@ -35,19 +36,25 @@ class NewsController
 
     public function create(string $title, string $body): void
     {
-        $ok = $this->service->createNews($title, $body, $this->authService->user());
-        $ok ? $this->jsonSuccess(null, 'News created') : $this->jsonError('Create failed');
+        $isCreated = $this->service->createNews($title, $body, $this->authService->user());
+        $isCreated
+            ? $this->jsonSuccess(null, NewsResponseEnum::CREATED_SUCCESS->value)
+            : $this->jsonError(NewsResponseEnum::CREATED_ERROR->value);
     }
 
     public function update(int $id, string $title, string $body): void
     {
-        $ok = $this->service->updateNews($id, $title, $body);
-        $ok ? $this->jsonSuccess(null, 'News updated') : $this->jsonError('Update failed');
+        $isUpdated = $this->service->updateNews($id, $title, $body);
+        $isUpdated
+            ? $this->jsonSuccess(null, NewsResponseEnum::UPDATED_SUCCESS->value)
+            : $this->jsonError(NewsResponseEnum::UPDATED_ERROR->value);
     }
 
     public function delete(int $id): void
     {
-        $ok = $this->service->deleteNews($id);
-        $ok ? $this->jsonSuccess(null, 'News deleted') : $this->jsonError('Delete failed');
+        $isDeleted = $this->service->deleteNews($id);
+        $isDeleted
+            ? $this->jsonSuccess(null, NewsResponseEnum::DELETED_SUCCESS->value)
+            : $this->jsonError(NewsResponseEnum::DELETED_ERROR->value);
     }
 }

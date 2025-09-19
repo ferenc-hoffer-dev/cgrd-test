@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../App/Bootstrap.php';
+require_once __DIR__ . '/../App/init.php';
 
 use App\Service\AuthService;
 use App\Controller\NewsController;

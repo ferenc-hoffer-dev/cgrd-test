@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+/** @deprecated */
 class BaseHelper
 {
     public static function isUserSet(): bool

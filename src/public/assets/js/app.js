@@ -7,9 +7,20 @@ const formHeader = document.getElementById('formHeader');
 const saveButton = document.getElementById('saveButton');
 const cancelEdit = document.getElementById('cancelEdit');
 const newsHeader = document.getElementById('newsHeader');
+const messageContainer = document.getElementById('messageContainer');
 const apiEndpoint = '/api.php';
 
 let newsData = [];
+
+const showMessage = (message, isSuccess = true) => {
+    messageContainer.textContent = message;
+    messageContainer.className = isSuccess ? 'message success' : 'message error';
+    messageContainer.style.display = 'block';
+
+    setTimeout(() => {
+        messageContainer.style.display = 'none';
+    }, 4000);
+};
 
 const renderNewsList = items => {
     newsList.innerHTML = '';
@@ -50,25 +61,24 @@ const resetForm = () => {
 
 const fetchNews = async () => {
     try {
-        const res = await fetch(apiEndpoint, { method: 'GET' });
+        const res = await fetch(apiEndpoint, {method: 'GET'});
         const data = await res.json();
         if (data.success) {
             newsData = data.data;
             renderNewsList(newsData);
         } else {
-            console.error(data.message);
-            alert('Error fetching news: ' + data.message);
+            showMessage(data.message, false);
         }
     } catch (error) {
         console.error('Fetch error:', error);
-        alert('Could not connect to the server.');
+        showMessage('Could not connect to the server.', false);
     }
 };
 
 const editNews = id => {
     const newsItem = newsData.find(item => item.id == id);
     if (!newsItem) {
-        alert('News item not found.');
+        showMessage('News item not found.', false);
         return;
     }
     newsId.value = newsItem.id;
@@ -88,18 +98,19 @@ const deleteNews = async id => {
     try {
         const res = await fetch(apiEndpoint, {
             method: 'DELETE',
-            body: new URLSearchParams({ id })
+            body: new URLSearchParams({id})
         });
         const data = await res.json();
         if (data.success) {
             if (newsId.value == id) resetForm();
             fetchNews();
+            showMessage(data.message, true);
         } else {
-            alert(data.message || 'Delete failed.');
+            showMessage(data.message, false);
         }
     } catch (error) {
         console.error('Delete error:', error);
-        alert('Failed to delete the news item.');
+        showMessage('Failed to delete the news item.', false);
     }
 };
 
@@ -107,20 +118,21 @@ newsForm.addEventListener('submit', async e => {
     e.preventDefault();
     const id = newsId.value;
     const method = id ? 'PUT' : 'POST';
-    const body = new URLSearchParams({ id, title: newsTitle.value, body: newsBody.value });
+    const body = new URLSearchParams({id, title: newsTitle.value, body: newsBody.value});
 
     try {
-        const res = await fetch(apiEndpoint, { method, body });
+        const res = await fetch(apiEndpoint, {method, body});
         const data = await res.json();
         if (data.success) {
             resetForm();
             fetchNews();
+            showMessage(data.message, true);
         } else {
-            alert(data.message || 'An error occurred.');
+            showMessage(data.message, false);
         }
     } catch (error) {
         console.error('Submit error:', error);
-        alert('Failed to save the news item. Please check your connection.');
+        showMessage('Failed to save the news item.', false);
     }
 });
 
