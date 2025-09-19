@@ -25,7 +25,7 @@
                 <input type="text" name="title" id="newsTitle" placeholder="Title" required>
                 <textarea name="body" id="newsBody" placeholder="Content" required></textarea>
                 <div class="button-group">
-                    <button type="submit" class="btn-save">Save</button>
+                    <button type="submit" class="btn-save" id="saveButton">Create</button>
                     <a href="/logout" class="btn-save">Logout</a>
                 </div>
             </form>

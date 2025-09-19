@@ -4,6 +4,7 @@ const newsId = document.getElementById('newsId');
 const newsTitle = document.getElementById('newsTitle');
 const newsBody = document.getElementById('newsBody');
 const formHeader = document.getElementById('formHeader');
+const saveButton = document.getElementById('saveButton');
 const newsHeader = document.getElementById('newsHeader');
 const apiEndpoint = '/api.php';
 
@@ -41,6 +42,7 @@ const resetForm = () => {
     newsId.value = '';
     newsTitle.value = '';
     newsBody.value = '';
+    saveButton.textContent = 'Create';
     formHeader.textContent = 'Create News';
 };
 
@@ -71,6 +73,7 @@ const editNews = id => {
     newsTitle.value = newsItem.title;
     newsBody.value = newsItem.body;
     formHeader.textContent = 'Edit News';
+    saveButton.textContent = 'Edit';
 };
 
 const deleteNews = async id => {
