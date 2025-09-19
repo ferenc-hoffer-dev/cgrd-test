@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
 </head>
 <body>
 <div class="main-container">
     <div class="logo-container">
-        <img src="assets/logo.svg" alt="cgrd logo" class="logo">
+        <img src="assets/images/logo.svg" alt="cgrd logo" class="logo">
     </div>
 
     <?php if (!empty($error)): ?>

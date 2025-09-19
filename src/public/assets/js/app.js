@@ -29,8 +29,8 @@ const renderNewsList = items => {
                 <span class="news-body">${item.body}</span>
             </div>
             <div class="news-actions">
-                <img src="assets/pencil.svg" alt="Edit" class="edit-icon" data-id="${item.id}">
-                <img src="assets/close.svg" alt="Delete" class="delete-icon" data-id="${item.id}">
+                <img src="assets/images/pencil.svg" alt="Edit" class="edit-icon" data-id="${item.id}">
+                <img src="assets/images/close.svg" alt="Delete" class="delete-icon" data-id="${item.id}">
             </div>
         `;
         newsList.appendChild(li);

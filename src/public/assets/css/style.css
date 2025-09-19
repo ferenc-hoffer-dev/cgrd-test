@@ -1,6 +1,6 @@
 body {
     background-color: #f0f4f7;
-    background-image: url('waves.svg');
+    background-image: url('../images/waves.svg');
     background-repeat: repeat;
     font-family: Arial, sans-serif;
     display: flex;
