@@ -19,7 +19,10 @@
         </div>
 
         <div class="edit-section">
-            <h2 class="form-header" id="formHeader">Create News</h2>
+            <div class="edit-header">
+                <h2 class="form-header" id="formHeader">Create News</h2>
+                <img src="assets/images/close.svg" alt="Cancel" class="delete-icon" id="cancelEdit" style="display:none;">
+            </div>
             <form id="newsForm">
                 <input type="hidden" name="id" id="newsId">
                 <input type="text" name="title" id="newsTitle" placeholder="Title" required>
@@ -33,6 +36,5 @@
     </div>
 </div>
 <script src="assets/js/app.js"></script>
-
 </body>
 </html>

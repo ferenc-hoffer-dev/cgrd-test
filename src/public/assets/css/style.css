@@ -11,10 +11,8 @@ body {
 }
 
 .main-container {
-    /* background-color: rgba(255, 255, 255, 0.9); */
     padding: 30px;
     border-radius: 10px;
-    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
     width: 90%;
     max-width: 600px;
     box-sizing: border-box;
@@ -47,6 +45,12 @@ ul {
     border-radius: 5px;
     margin-bottom: 10px;
     background-color: #fff;
+}
+
+.edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .news-content {

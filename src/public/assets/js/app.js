@@ -5,6 +5,7 @@ const newsTitle = document.getElementById('newsTitle');
 const newsBody = document.getElementById('newsBody');
 const formHeader = document.getElementById('formHeader');
 const saveButton = document.getElementById('saveButton');
+const cancelEdit = document.getElementById('cancelEdit');
 const newsHeader = document.getElementById('newsHeader');
 const apiEndpoint = '/api.php';
 
@@ -42,8 +43,9 @@ const resetForm = () => {
     newsId.value = '';
     newsTitle.value = '';
     newsBody.value = '';
-    saveButton.textContent = 'Create';
     formHeader.textContent = 'Create News';
+    saveButton.textContent = 'Create';
+    cancelEdit.style.display = 'none';
 };
 
 const fetchNews = async () => {
@@ -74,7 +76,12 @@ const editNews = id => {
     newsBody.value = newsItem.body;
     formHeader.textContent = 'Edit News';
     saveButton.textContent = 'Edit';
+    cancelEdit.style.display = 'inline-block';
 };
+
+cancelEdit.addEventListener('click', () => {
+    resetForm();
+});
 
 const deleteNews = async id => {
     if (!confirm('Are you sure you want to delete this news item?')) return;
